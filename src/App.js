@@ -1,28 +1,58 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { Router, Route} from "react-router-dom";
+import youtube from './youtube';
+import history from './history';
+
+import Search from './Search';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+import Header from './Header';
+import VideoPlayer from './VideoPlayer';
+import Home from './Home';
+
+
+const App = () => {
+
+  const [videos, setVideos] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState({});
+
+  const onTermSubmit = async term => {
+      const response = await youtube.get('/search', {
+          params: {
+              q: term,
+              maxResults: 20,
+              part: 'snippet',
+              type: 'video'
+          }
+      });
+      setVideos(response.data.items);
+      history.push('/search');
   }
+
+  const onVideoSelect = video => {
+    setSelectedVideo(video);
+    history.push(`/watch/${video.id.videoId || video.id}`);
+  }
+
+  return (
+      <>
+        <Router history={history} >
+          <Header onTermSubmit={onTermSubmit}/>
+            <Route 
+              exact path="/" 
+              render={() => <Home onVideoSelect={onVideoSelect} />}
+            />
+            <Route 
+              exact path="/search" 
+              render={() => <Search onVideoSelect={onVideoSelect} videos={videos} />}
+            />
+            <Route 
+              path="/watch/:id" 
+              render={(props) => <VideoPlayer {...props} selectedVideo={selectedVideo} />}
+            />  
+        </Router>  
+      </>
+  );
 }
 
 export default App;
