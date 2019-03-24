@@ -34,6 +34,7 @@ const Div = styled.div`
     ${media.medium`
         display: block;
         width: 95%;
+        
     `} 
 `;
 
@@ -56,6 +57,10 @@ const Player = styled.iframe`
 const HeaderContentDiv = styled.div`
     display: grid;
     grid-template-columns: 3fr 1fr;
+
+    ${media.medium`
+        grid-template-columns: 1fr;
+    `} 
 `;
 
 const ContentDiv = styled.div`
@@ -63,10 +68,42 @@ const ContentDiv = styled.div`
     grid-template-rows: 1fr 2fr;
 `;
 
+const ViewsDiv = styled.div`
+    justify-self: end;
+    ${media.medium`
+    justify-self: start;
+    `} 
+`;
+
 const AVI = styled.img`
     border-radius: 50%;
     width: 50px;
     margin: 0 5px 0 0;
+`;
+
+const H2 = styled.h2`
+    ${media.medium`
+        margin: 10px 0;
+        font-size: 1.2rem;
+    `} 
+`;
+
+const H3 = styled.h3`
+    margin: 0;
+    align-self: center;
+
+    ${media.medium`
+        font-size: 1rem;
+    `} 
+`;
+
+const H4 = styled.h4`
+    margin: 0;
+    align-self: center;
+
+    ${media.medium`
+        font-size: 1rem;
+    `} 
 `;
 
 const VideoPlayer = ({ selectedVideo, match }) => {
@@ -138,17 +175,17 @@ const VideoPlayer = ({ selectedVideo, match }) => {
                 </PlayerDiv>
                 <Divider />
                 <HeaderContentDiv>
-                    <h2>{escapeChar(video.snippet.title)}</h2>
-                    <div style={{justifySelf: 'end'}}>
-                        <h2>{video.statistics.viewCount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h2>
-                    </div>
+                    <H2>{escapeChar(video.snippet.title)}</H2>
+                    <ViewsDiv>
+                        <H2>{video.statistics.viewCount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</H2>
+                    </ViewsDiv>
                 </HeaderContentDiv>
                 <ContentDiv>
                     <div style={{display: 'grid', gridTemplateColumns: '1fr 3fr', width: '50%'}}>
                         <AVI style={{alignSelf: 'center', justifySelf: 'center'}} src={channelAvatar} />
                         <div style={{margin: 0, display: 'inline-block', alignSelf: 'center'}}>
-                            <h3 style={{margin: 0, alignSelf: 'center'}}>{channelName}</h3>
-                            <h4 style={{margin: 0, alignSelf: 'center'}}>{`Published on ${formatDate(video.snippet.publishedAt, 'MMMM DD, YYYY')}`}</h4>
+                            <H3>{channelName}</H3>
+                            <H4>{`Published on ${formatDate(video.snippet.publishedAt, 'MMMM DD, YYYY')}`}</H4>
                         </div>
                     </div>
                         
