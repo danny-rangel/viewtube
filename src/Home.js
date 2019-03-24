@@ -72,7 +72,7 @@ const Home = ({ onVideoSelect }) => {
                 src={video.snippet.thumbnails.standard.url}
             />
             <CardContent>
-                <h4 style={{margin: 0}}>
+                <h4 style={{margin: 0, fontWeight: '100'}}>
                     {escapeChar(video.snippet.title)}
                 </h4>
             </CardContent>
@@ -82,7 +82,7 @@ const Home = ({ onVideoSelect }) => {
 
   return (
       <HomeDiv>
-        <h2>Trending</h2>
+        <h2 style={{fontWeight: '100'}}>Trending</h2>
         <ListDiv>
             {renderedList}
         </ListDiv>

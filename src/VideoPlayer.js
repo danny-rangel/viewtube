@@ -82,6 +82,7 @@ const AVI = styled.img`
 `;
 
 const H2 = styled.h2`
+    font-weight: 100;
     ${media.medium`
         margin: 10px 0;
         font-size: 1.2rem;
@@ -91,6 +92,7 @@ const H2 = styled.h2`
 const H3 = styled.h3`
     margin: 0;
     align-self: center;
+    font-weight: 100;
 
     ${media.medium`
         font-size: 1rem;
@@ -100,6 +102,7 @@ const H3 = styled.h3`
 const H4 = styled.h4`
     margin: 0;
     align-self: center;
+    font-weight: 100;
 
     ${media.medium`
         font-size: 1rem;

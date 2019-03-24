@@ -10,7 +10,7 @@ const CommentList = ({ video, comments }) => {
 
     return (
         <>
-            <h4>{`${video.statistics.commentCount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")} comments`}</h4>
+            <h4 style={{fontWeight: '100'}}>{`${video.statistics.commentCount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")} comments`}</h4>
             <List >
                 {renderedList}
             </List>
