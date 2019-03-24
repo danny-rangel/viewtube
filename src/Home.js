@@ -30,7 +30,7 @@ const HomeDiv = styled.div`
 
 const ListDiv = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     grid-gap: 20px;
 `;
 

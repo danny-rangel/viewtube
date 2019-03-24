@@ -2,8 +2,25 @@ import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import escapeChar from './escapeChar';
+
+
+const size = {
+    small: 400,
+    medium: 960,
+    large: 1140
+}
+
+const media = Object.keys(size).reduce((acc, label) => {
+    acc[label] = (...args) => css`
+        @media (max-width: ${size[label]}px) {
+            ${css(...args)}
+        }
+    `
+    return acc;
+}, {});
+
 
 const NewCard = styled(Card)`
     && {
@@ -21,13 +38,17 @@ const Content = styled(CardContent)`
         grid-template-columns: 1fr 2fr;
         grid-gap: 10px;
         align-items: center;
+
+        ${media.medium`
+        grid-template-columns: 1fr;
+        `} 
     }
 `;
 
 
 const Image = styled.img`
     && {
-        width: 300px;
+        width: 100%;
     }
 `;
 
@@ -36,7 +57,6 @@ const Div = styled.div`
     justify-self: center;
     justify-items: center;
     cursor: pointer;
-
     
 `;
 
