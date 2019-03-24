@@ -41,7 +41,12 @@ const Nav = styled(AppBar)`
 }
 `;
 
-const Text = styled(Typography)`
+const Text = styled.h2`
+font-weight: 900;
+text-decoration: none;
+color: black;
+margin: 0;
+letter-spacing: -1.5px;
 && {
   display: inline-block;
   justify-self: start;
@@ -105,7 +110,7 @@ const Header = ({ onTermSubmit }) => {
                 <Logo src="/viewtube.png" />
               </StyledLink>
               <StyledLink to="/">
-                <Text variant="h6">
+                <Text >
                   ViewTube
                 </Text>
               </StyledLink>
