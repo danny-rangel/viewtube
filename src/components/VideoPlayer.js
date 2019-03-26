@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import youtube from './youtube';
-import formatDate from 'date-fns/format';
+import youtube from '../api/youtube';
 import CommentList from './CommentList';
 import Divider from '@material-ui/core/Divider';
-import escapeChar from './escapeChar';
+import escapeChar from '../utils/escapeChar';
+import moment from 'moment';
 
 const size = {
     small: 400,
@@ -130,14 +130,18 @@ const VideoPlayer = ({ selectedVideo, match }) => {
     }
 
     const fetchComments = async id => {
-        const response = await youtube.get('/commentThreads', {
-            params: {
-                videoId: id,
-                part: 'snippet',
-                maxResults: 30
-            }
-        });
-        setComments(response.data.items);
+        try {
+            const response = await youtube.get('/commentThreads', {
+                params: {
+                    videoId: id,
+                    part: 'snippet',
+                    maxResults: 30
+                }
+            });
+            setComments(response.data.items);
+        } catch(error) {
+            console.log(error);
+        }
     }
 
     const fetchChannel = async id => {
@@ -188,10 +192,9 @@ const VideoPlayer = ({ selectedVideo, match }) => {
                         <AVI style={{alignSelf: 'center', justifySelf: 'center'}} src={channelAvatar} />
                         <div style={{margin: 0, display: 'inline-block', alignSelf: 'center'}}>
                             <H3>{channelName}</H3>
-                            <H4>{`Published on ${formatDate(video.snippet.publishedAt, 'MMMM DD, YYYY')}`}</H4>
+                            <H4>{`Published on ${moment(video.snippet.publishedAt).format('MMMM DD, YYYY')}`}</H4>
                         </div>
                     </div>
-                        
                     <p>{video.snippet.description.length > 300 ? `${video.snippet.description.slice(0, 300)}...` : video.snippet.description}</p>
                 </ContentDiv>
                 <Divider />

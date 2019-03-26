@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import youtube from './youtube';
+import youtube from '../api/youtube';
 import styled, { css } from 'styled-components';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import escapeChar from './escapeChar';
+import escapeChar from '../utils/escapeChar';
 
 const size = {
     small: 400,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Router, Route} from "react-router-dom";
-import youtube from './youtube';
-import history from './history';
+import youtube from '../api/youtube';
+import history from '../utils/history';
 
 import Search from './Search';
 import './App.css';
