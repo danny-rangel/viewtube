@@ -24,7 +24,7 @@ const media = Object.keys(size).reduce((acc, label) => {
 
 
 const Div = styled.div`
-    margin: 60px auto 0; 
+    margin: 120px auto 0; 
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
