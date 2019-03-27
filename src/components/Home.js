@@ -21,10 +21,10 @@ const media = Object.keys(size).reduce((acc, label) => {
 }, {});
 
 const HomeDiv = styled.div`
-    margin: 20px 180px;
+    margin: 80px 180px;
 
     ${media.medium`
-        margin: 20px 5px;
+        margin: 80px 5px;
     `}
 `;
 

@@ -19,7 +19,7 @@ const media = Object.keys(size).reduce((acc, label) => {
 
 const Div = styled.div`
     width: 70%;
-    margin: 20px auto;
+    margin: 80px auto;
     ${media.medium`
         width: 100%;
     `}

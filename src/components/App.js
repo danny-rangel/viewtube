@@ -9,6 +9,7 @@ import './App.css';
 import Header from './Header';
 import VideoPlayer from './VideoPlayer';
 import Home from './Home';
+import Sidebar from './Sidebar';
 
 
 const App = () => {
@@ -37,7 +38,8 @@ const App = () => {
   return (
       <>
         <Router history={history} >
-          <Header onTermSubmit={onTermSubmit}/>
+          {/* <Header onTermSubmit={onTermSubmit}/> */}
+          <Sidebar onTermSubmit={onTermSubmit}/>
             <Route 
               exact path="/" 
               render={() => <Home onVideoSelect={onVideoSelect} />}

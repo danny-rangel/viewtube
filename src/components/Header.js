@@ -24,7 +24,7 @@ const media = Object.keys(size).reduce((acc, label) => {
 
 const Nav = styled(AppBar)`
 && {
-  position: static;
+  position: fixed;
   color: black;
   background-color: #FF0000;
   background-color: white;
