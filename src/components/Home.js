@@ -69,7 +69,7 @@ const Home = ({ onVideoSelect }) => {
       return (
         <StyledCard key={video.id} onClick={() => onVideoSelect(video)} >
             <Img
-                src={video.snippet.thumbnails.standard.url}
+                src={video.snippet.thumbnails.high.url}
             />
             <CardContent>
                 <h4 style={{margin: 0, fontWeight: '100'}}>
