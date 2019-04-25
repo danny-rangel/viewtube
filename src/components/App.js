@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { Router, Route} from "react-router-dom";
 import youtube from '../api/youtube';
 import history from '../utils/history';
-
-import Search from './Search';
+import ScrollToTop from '../utils/ScrollToTop';
+import Search from './Search/Search';
 import './App.css';
-
 import Header from './Header';
-import VideoPlayer from './VideoPlayer';
+import VideoPlayer from './Player/VideoPlayer';
 import Home from './Home';
-import Sidebar from './Sidebar';
+// import Sidebar from './Sidebar';
 
 
 const App = () => {
@@ -31,6 +30,7 @@ const App = () => {
   }
 
   const onVideoSelect = video => {
+    
     setSelectedVideo(video);
     history.push(`/watch/${video.id.videoId || video.id}`);
   }
@@ -38,8 +38,9 @@ const App = () => {
   return (
       <>
         <Router history={history} >
-          {/* <Header onTermSubmit={onTermSubmit}/> */}
-          <Sidebar onTermSubmit={onTermSubmit}/>
+          <ScrollToTop>
+          <Header onTermSubmit={onTermSubmit}/>
+          {/* <Sidebar onTermSubmit={onTermSubmit}/> */}
             <Route 
               exact path="/" 
               render={() => <Home onVideoSelect={onVideoSelect} />}
@@ -50,8 +51,9 @@ const App = () => {
             />
             <Route 
               path="/watch/:id" 
-              render={(props) => <VideoPlayer {...props} selectedVideo={selectedVideo} />}
+              render={(props) => <VideoPlayer {...props} selectedVideo={selectedVideo} onVideoSelect={onVideoSelect} />}
             />  
+          </ScrollToTop>
         </Router>  
       </>
   );

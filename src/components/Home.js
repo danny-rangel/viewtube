@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import escapeChar from '../utils/escapeChar';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const size = {
     small: 400,
@@ -22,6 +23,7 @@ const media = Object.keys(size).reduce((acc, label) => {
 
 const HomeDiv = styled.div`
     margin: 80px 180px;
+    display: grid;
 
     ${media.medium`
         margin: 80px 5px;
@@ -41,6 +43,14 @@ const StyledCard = styled(Card)`
     }
 `;
 
+const StyledProgress = styled(CircularProgress)`
+    && {
+        align-self: center;
+        justify-self: center;
+        color: black;
+    }
+`;
+
 const Img = styled.img`
     width: 100%;
 `;
@@ -49,22 +59,25 @@ const Img = styled.img`
 const Home = ({ onVideoSelect }) => {
 
   const [trendingVideos, setTrendingVideos] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchTopVideos = async () => {
-      const response = await youtube.get('/videos', {
-          params: {
-              chart: 'mostPopular',
-              maxResults: 20,
-              part: 'snippet,contentDetails,statistics'
-          }
-      });
-      setTrendingVideos(response.data.items);
+    setLoading(true);
+    const response = await youtube.get('/videos', {
+        params: {
+            chart: 'mostPopular',
+            maxResults: 20,
+            part: 'snippet,contentDetails,statistics'
+        }
+    });
+    setTrendingVideos(response.data.items);
+    setLoading(false);
   }
 
   useEffect(() => {
     fetchTopVideos();
   }, [])
-
+  
   const renderedList = trendingVideos.map(video => {
       return (
         <StyledCard key={video.id} onClick={() => onVideoSelect(video)} >
@@ -73,21 +86,31 @@ const Home = ({ onVideoSelect }) => {
             />
             <CardContent>
                 <h4 style={{margin: 0, fontWeight: '100'}}>
-                    {escapeChar(video.snippet.title)}
+                    {video.snippet.title.length > 46 ? `${escapeChar(video.snippet.title.slice(0, 46))}...` : escapeChar(video.snippet.title)}
                 </h4>
             </CardContent>
         </StyledCard>
       );
-  })
+  });
 
-  return (
-      <HomeDiv>
-        <h2 style={{fontWeight: '100'}}>Trending</h2>
-        <ListDiv>
-            {renderedList}
-        </ListDiv>
-      </HomeDiv>
-  );
+
+    if (loading) {
+        return (
+            <HomeDiv>
+                <h2 style={{fontWeight: '100'}}>Trending</h2>
+                <StyledProgress />
+            </HomeDiv>
+        );
+    } else {
+        return (
+            <HomeDiv>
+                <h2 style={{fontWeight: '100'}}>Trending</h2>
+                <ListDiv>
+                    {renderedList}
+                </ListDiv>
+            </HomeDiv>
+        );
+    }
 }
 
 export default Home;

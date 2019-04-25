@@ -69,11 +69,12 @@ const size = {
   `;
   
   const Text = styled.h2`
-  font-weight: 900;
+  font-weight: bold;
   text-decoration: none;
+  font-size: 1.4rem;
   color: black;
   margin: 0;
-  letter-spacing: -1.5px;
+  letter-spacing: -1.75px;
   && {
     display: inline-block;
     justify-self: start;
@@ -199,7 +200,7 @@ class Sidebar extends React.Component {
     const { open } = this.state;
 
     return (
-      <div className={classes.root}>
+      <div className={classes.root} >
         <CssBaseline />
         <Nav
           position="fixed"
@@ -213,6 +214,7 @@ class Sidebar extends React.Component {
               aria-label="Open drawer"
               onClick={this.handleDrawerOpen}
               className={classNames(classes.menuButton, open)}
+              style={{width: '50px', justifySelf: 'center'}}
             >
               <MenuIcon />
             </IconButton>

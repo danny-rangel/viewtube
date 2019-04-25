@@ -1,9 +1,8 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import styled, { css } from 'styled-components';
-import escapeChar from '../utils/escapeChar';
+import escapeChar from '../../utils/escapeChar';
 
 
 const size = {
@@ -38,17 +37,39 @@ const Content = styled(CardContent)`
         grid-template-columns: 1fr 2fr;
         grid-gap: 10px;
         align-items: center;
+        padding: 4px;
+        padding-bottom: 4px !important;
 
-        ${media.medium`
-        grid-template-columns: 1fr;
+        ${media.small`
+            grid-template-columns: 1fr;
         `} 
     }
 `;
+
+const TitleText = styled.h1`
+    font-size: ${props => props.fontSize}rem;
+    color: black;
+
+    ${media.medium`
+        font-size: 1rem;
+    `} 
+`;
+
+const ChannelNameText = styled.h1`
+    font-size: 1rem;
+    color: gray;
+
+    ${media.medium`
+        font-size: 0.7rem;
+    `} 
+`;
+
 
 
 const Image = styled.img`
     && {
         width: 100%;
+        min-width: 200px;
     }
 `;
 
@@ -60,7 +81,7 @@ const Div = styled.div`
     
 `;
 
-const SearchItem = ({ video, onVideoSelect }) => {
+const SearchItem = ({ video, onVideoSelect, fontSize }) => {
     return (
         <Div onClick={() => onVideoSelect(video)}>
             <NewCard>
@@ -69,15 +90,15 @@ const SearchItem = ({ video, onVideoSelect }) => {
                         src={video.snippet.thumbnails.high.url}
                     />
                     <div>
-                        <Typography component="h6" variant="h6">
+                        <TitleText fontSize={fontSize}>
                             {escapeChar(video.snippet.title)}
-                        </Typography>
-                        <Typography variant="subtitle1" color="textSecondary">
+                        </TitleText>
+                        <ChannelNameText >
                             {video.snippet.channelTitle}
-                        </Typography>
-                        <Typography variant="subtitle1" color="textSecondary">
+                        </ChannelNameText>
+                        {/* <Typography variant="subtitle1" color="textSecondary">
                             {video.snippet.description}
-                        </Typography>
+                        </Typography> */}
                     </div>
                 </Content>
             </NewCard>

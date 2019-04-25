@@ -25,10 +25,11 @@ const Div = styled.div`
     `}
 `;
 
+
 const Search = ({ videos, onVideoSelect }) => {
     return (
         <Div>
-            <SearchList onVideoSelect={onVideoSelect} videos={videos} />
+            <SearchList onVideoSelect={onVideoSelect} videos={videos} fontSize={'1.4'}/>
         </Div>
     );
 }

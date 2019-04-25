@@ -91,9 +91,6 @@ const StyledLink = styled(Link)`
 `;
 
 
-
-
-
 const Header = ({ onTermSubmit }) => {
     const [ searchTerm, setSearchTerm ] = useState("");
 
