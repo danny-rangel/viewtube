@@ -4,6 +4,7 @@ import youtube from '../../api/youtube';
 import VideoPlayerDetails from './VideoPlayerDetails';
 import SearchList from '../Search/SearchList';
 import CommentList from '../Comments/CommentList';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import Divider from '@material-ui/core/Divider';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -87,6 +88,15 @@ const Player = styled.iframe`
     display: block;
 `;
 
+const StyledProgress = styled(CircularProgress)`
+    && {
+        align-self: center;
+        justify-self: center;
+        color: black;
+        margin: 100px 0;
+    }
+`;
+
 
 const VideoPlayer = ({ selectedVideo, match, onVideoSelect }) => {
 
@@ -96,6 +106,7 @@ const VideoPlayer = ({ selectedVideo, match, onVideoSelect }) => {
     const [channelAvatar, setChannelAvatar] = useState("");
     const [comments, setComments] = useState([]);
     const [recommended, setRecommended] = useState([]);
+    const [nextComments, setNextComments] = useState(null);
 
     const fetchRecommended = async id => {
         const response = await youtube.get('/search', {
@@ -119,6 +130,7 @@ const VideoPlayer = ({ selectedVideo, match, onVideoSelect }) => {
                 }
             });
             setComments(response.data.items);
+            setNextComments(response.data.nextPageToken);
         } catch(error) {
             console.log(error);
         }
@@ -149,11 +161,32 @@ const VideoPlayer = ({ selectedVideo, match, onVideoSelect }) => {
         fetchRecommended(id);
     }
 
+
+    const fetchNextComments = async id => {
+        
+        try {
+            const response = await youtube.get('/commentThreads', {
+                params: {
+                    videoId: id,
+                    part: 'snippet',
+                    maxResults: 30,
+                    pageToken: nextComments
+                }
+            });
+            setComments([...comments, ...response.data.items]);
+            setNextComments(response.data.nextPageToken || null);
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+
     useEffect(() => {
         fetchVideo(match.params.id);
     }, [selectedVideo, match.params.id])
 
         return (
+            
             <>
                 {video ? (
                 <MainDiv>
@@ -171,11 +204,25 @@ const VideoPlayer = ({ selectedVideo, match, onVideoSelect }) => {
                             video={video} 
                         />
                         <Divider style={{gridArea: 'divider2'}}/>
-                        <CommentList 
-                            video={video} 
-                            comments={comments} 
-                            style={{gridArea: 'comments'}}
-                        />
+                        <InfiniteScroll
+                            style={{overflow: 'hidden'}}
+                            dataLength={comments.length}
+                            next={() => fetchNextComments(match.params.id)}
+                            hasMore={nextComments !== null ? true : false}
+                            loader={<div style={{display: 'grid'}}>
+                                <StyledProgress />
+                            </div>}
+                            endMessage={
+                                <div style={{marginBottom: '40px'}}>
+                                </div>
+                            }
+                            >
+                                <CommentList 
+                                video={video} 
+                                comments={comments} 
+                                style={{gridArea: 'comments'}}
+                            />
+                            </InfiniteScroll>
                     </PlayerSectionDiv>
                     <ListSectionDiv>
                         <SearchList 

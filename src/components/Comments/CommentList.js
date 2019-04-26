@@ -13,7 +13,6 @@ const StyledProgress = styled(CircularProgress)`
 `;
 
 const CommentList = ({ video, comments }) => {
-
     if (comments.length === 0) {
         return <div style={{margin: '20px 0'}}>No comments to show</div>
     }
