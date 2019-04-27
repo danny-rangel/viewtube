@@ -95,7 +95,7 @@ const SearchBarButton = styled.button`
   border-right: none;
   border-top: none;
   border-bottom: none;
-  height: 32px;
+  height: 31.59px;
   margin-top: 0;
   width: 65px;
   padding: 0px 7px;
