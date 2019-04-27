@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import AppBar from '@material-ui/core/AppBar';
-import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 
 
@@ -30,13 +28,13 @@ const Nav = styled(AppBar)`
   background-color: white;
   height: 4rem;
   display: grid;
-  grid-template-columns: 2fr 4fr 1fr 1fr;
+  grid-template-columns: 1fr 4fr;
   grid-gap: 10px;
   align-items: center;
   box-shadow: 0px -5px 10px black;
 
   ${media.medium`
-    grid-template-columns: 2fr 4fr 1fr;
+    grid-template-columns: 2fr 4fr;
   `} 
 }
 `;
@@ -53,23 +51,16 @@ const Text = styled.h2`
   }
 `;
 
-const Input = styled(InputBase)`
-&& {
+const Input = styled.input`
   flex: 1;
-  color: black;
-  border-radius: 5px;
-  height: 1rem;
+  border: none;
+  background-color: transparent;
   padding: 10px;
-  width: 95%;
-  border: 1px solid #d7d7e2;
-}
-`;
-
-const Icon = styled(IconButton)`
-&& {
+  font-size: 16px;
   color: black;
-  justify-self: start;
-}
+  ${media.medium`
+    width: 80%;
+  `} 
 `;
 
 const Div = styled.div`
@@ -79,6 +70,46 @@ const Div = styled.div`
   justify-self: center;
   align-items: center;
   justify-items: center;
+`;
+
+
+const SearchBarContainer = styled.div`
+  height: 31.59px;
+  border-radius: 2px;
+  background-clip: white;
+  padding: 0;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  width: 70%;
+  max-width: 770px;
+  box-sizing: border-box;
+  display: flex;
+  ${media.medium`
+    width: 95%;
+  `} 
+  
+`;
+
+const SearchBarButton = styled.button`
+  background-color: #F9F9F9;
+  border-left: 1px solid #EBEBEB;
+  border-right: none;
+  border-top: none;
+  border-bottom: none;
+  height: 32px;
+  margin-top: 0;
+  width: 65px;
+  padding: 0px 7px;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #F1F1F1;
+  }
+  ${media.medium`
+    width: 50px;
+  `} 
 `;
 
 const Logo = styled.img`
@@ -112,18 +143,19 @@ const Header = ({ onTermSubmit }) => {
                 </Text>
               </StyledLink>
             </Div>
-            <form onSubmit={handleSubmit} noValidate autoComplete="off">
-              <Input 
-                placeholder="Search"
-                onChange={e => setSearchTerm(e.target.value)}
-                onSubmit={handleSubmit}
-                required
-              >
-              </Input>
-            </form>
-            <Icon onClick={handleSubmit} aria-label="Search">
-              <SearchIcon />
-            </Icon>
+              <form onSubmit={handleSubmit} noValidate autoComplete="off">
+                <SearchBarContainer>
+                  <Input 
+                    placeholder="Search"
+                    onChange={e => setSearchTerm(e.target.value)}
+                    onSubmit={handleSubmit}
+                  >
+                  </Input>
+                  <SearchBarButton onClick={handleSubmit} aria-label="Search">
+                    <SearchIcon style={{width: '22px'}}/>
+                  </SearchBarButton>
+                </SearchBarContainer>
+              </form>
         </Nav>
     );
 }

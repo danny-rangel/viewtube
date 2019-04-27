@@ -41,7 +41,7 @@ const Search = ({ videos, onVideoSelect, fetchNextVideos, nextVideos }) => {
     return (
         <Div>
             <InfiniteScroll
-                style={{overflow: 'hidden'}}
+                style={{overflow: 'visible'}}
                 dataLength={videos.length}
                 next={fetchNextVideos}
                 hasMore={nextVideos !== null ? true : false}

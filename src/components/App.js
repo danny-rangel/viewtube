@@ -19,6 +19,9 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState(null);
 
   const onTermSubmit = async term => {
+    if (term.length === 0) {
+      return;
+    }
     setSearchTerm(term);
       const response = await youtube.get('/search', {
           params: {
@@ -28,14 +31,12 @@ const App = () => {
               type: 'video'
           }
       });
-      console.log(response);
       setVideos(response.data.items);
       setNextVideos(response.data.nextPageToken || null);
       history.push('/search');
   }
 
   const fetchNextVideos = async () => {
-    console.log('fetch', searchTerm);
     const response = await youtube.get('/search', {
         params: {
             q: searchTerm,
