@@ -23,7 +23,7 @@ const CommentItem = ({ comment }) => {
           }
           secondary={
             <>
-              <Typography component="span" color="textPrimary" style={{overflow: 'hidden'}}>
+              <Typography component="span" color="textPrimary" style={{overflow: 'hidden', overflowWrap: 'break-word', wordWrap: 'break-word', hyphens: 'auto'}}>
                 {comment.snippet.topLevelComment.snippet.textOriginal}
               </Typography>
             </>
