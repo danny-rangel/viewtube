@@ -4,6 +4,12 @@ import styled from 'styled-components';
 import List from '@material-ui/core/List';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+const StyledDiv = styled.div`
+    width: 90%;
+    padding: 10px 0;
+    margin: 0 auto;
+`;
+
 const StyledProgress = styled(CircularProgress)`
     && {
         align-self: center;
@@ -23,7 +29,7 @@ const CommentList = ({ video, comments }) => {
 
     return (
         video && comments ? (
-            <div>
+            <StyledDiv>
                 <h4 
                     style={{fontWeight: '100', margin: 0}}>
                     {`${video.statistics.commentCount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")} comments`}
@@ -31,11 +37,11 @@ const CommentList = ({ video, comments }) => {
                 <List >
                     {renderedList}
                 </List>
-            </div>
+            </StyledDiv>
         ) : (
-            <div>
+            <StyledDiv>
                 <StyledProgress />
-            </div>
+            </StyledDiv>
         )
     );
 }

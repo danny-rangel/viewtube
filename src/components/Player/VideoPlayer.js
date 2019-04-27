@@ -6,7 +6,7 @@ import SearchList from '../Search/SearchList';
 import CommentList from '../Comments/CommentList';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import Divider from '@material-ui/core/Divider';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const size = {
@@ -28,13 +28,18 @@ const media = Object.keys(size).reduce((acc, label) => {
 const MainDiv = styled.div`
     display: grid; 
     padding-top: 100px;
-    grid-template-columns: 4.5fr 2fr;
+    grid-gap: 10px;
+    grid-template-columns: 2.2fr 1fr;
+    grid-template-rows: fit-content(800px) 1fr;
+    grid-template-areas: "playerdiv listdiv"
+                         "comments  listdiv";
 
     ${media.medium`
-    grid-template-columns: 1fr;
+        grid-template-columns: 1fr;
         grid-template-areas:
-            "playerSection"
-            "listSection";
+            "playerdiv"
+            "listdiv"
+            "comments";
         
     `} 
 `;
@@ -43,32 +48,38 @@ const MainDiv = styled.div`
 const PlayerSectionDiv = styled.div`
     margin: 0 auto; 
     display: grid;
-    grid-template-rows: fit-content(500px) 2px 150px 2px 1fr;
+    grid-template-rows: fit-content(500px) 0.5fr;
+    grid-area: playerdiv;
     grid-gap: 10px;
     width: 90%;
     
     grid-template-areas: 
         "player"
-        "divider"
         "content"
-        "divider2"
-        "comments"
     ;
 
     ${media.medium`
         display: block;
         width: 95%;
-        grid-area: playerSection;
     `} 
 `;
 
 const ListSectionDiv = styled.div`
     padding-right: 10px;
+    grid-area: listdiv;
+
     ${media.medium`
-        
-    grid-area: listSection;
+
     `} 
 `;
+
+
+
+
+
+
+
+
 
 const PlayerDiv = styled.div`
     position: relative;
@@ -197,14 +208,16 @@ const VideoPlayer = ({ selectedVideo, match, onVideoSelect }) => {
                                 allow="fullscreen" 
                             />
                         </PlayerDiv>
-                        <Divider style={{gridArea: 'divider'}}/>
+                        
                         <VideoPlayerDetails 
                             channelAvatar={channelAvatar} 
                             channelName={channelName}
                             video={video} 
                         />
-                        <Divider style={{gridArea: 'divider2'}}/>
-                        <InfiniteScroll
+                        
+                    </PlayerSectionDiv>
+
+                    <InfiniteScroll
                             style={{overflow: 'hidden'}}
                             dataLength={comments.length}
                             next={() => fetchNextComments(match.params.id)}
@@ -217,13 +230,13 @@ const VideoPlayer = ({ selectedVideo, match, onVideoSelect }) => {
                                 </div>
                             }
                             >
-                                <CommentList 
+                            <CommentList 
                                 video={video} 
                                 comments={comments} 
                                 style={{gridArea: 'comments'}}
                             />
-                            </InfiniteScroll>
-                    </PlayerSectionDiv>
+                    </InfiniteScroll>
+
                     <ListSectionDiv>
                         <SearchList 
                             videos={recommended} 
