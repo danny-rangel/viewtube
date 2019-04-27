@@ -33,6 +33,7 @@ const Nav = styled(AppBar)`
   grid-template-columns: 2fr 4fr 1fr 1fr;
   grid-gap: 10px;
   align-items: center;
+  box-shadow: 0px -5px 10px black;
 
   ${media.medium`
     grid-template-columns: 2fr 4fr 1fr;
@@ -41,15 +42,15 @@ const Nav = styled(AppBar)`
 `;
 
 const Text = styled.h2`
-font-weight: 900;
-text-decoration: none;
-color: black;
-margin: 0;
-letter-spacing: -1.5px;
-&& {
-  display: inline-block;
-  justify-self: start;
-}
+  font-weight: 900;
+  text-decoration: none;
+  color: black;
+  margin: 0;
+  letter-spacing: -1.5px;
+  && {
+    display: inline-block;
+    justify-self: start;
+  }
 `;
 
 const Input = styled(InputBase)`

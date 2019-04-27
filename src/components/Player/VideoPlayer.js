@@ -29,7 +29,7 @@ const MainDiv = styled.div`
     display: grid; 
     padding-top: 100px;
     grid-gap: 10px;
-    grid-template-columns: 2.2fr 1fr;
+    grid-template-columns: 2.4fr 1fr;
     grid-template-rows: fit-content(800px) 1fr;
     grid-template-areas: "playerdiv listdiv"
                          "comments  listdiv";
@@ -51,7 +51,7 @@ const PlayerSectionDiv = styled.div`
     grid-template-rows: fit-content(500px) 0.5fr;
     grid-area: playerdiv;
     grid-gap: 10px;
-    width: 90%;
+    width: 95%;
     
     grid-template-areas: 
         "player"
@@ -60,7 +60,7 @@ const PlayerSectionDiv = styled.div`
 
     ${media.medium`
         display: block;
-        width: 95%;
+    
     `} 
 `;
 
