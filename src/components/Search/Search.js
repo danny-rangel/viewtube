@@ -1,6 +1,8 @@
 import React from 'react';
 import SearchList from './SearchList';
 import styled, { css } from 'styled-components';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const size = {
     small: 400,
@@ -25,11 +27,34 @@ const Div = styled.div`
     `}
 `;
 
+const StyledProgress = styled(CircularProgress)`
+    && {
+        align-self: center;
+        justify-self: center;
+        color: black;
+        margin: 100px 0;
+    }
+`;
 
-const Search = ({ videos, onVideoSelect }) => {
+
+const Search = ({ videos, onVideoSelect, fetchNextVideos, nextVideos }) => {
     return (
         <Div>
-            <SearchList onVideoSelect={onVideoSelect} videos={videos} fontSize={'1.4'}/>
+            <InfiniteScroll
+                style={{overflow: 'hidden'}}
+                dataLength={videos.length}
+                next={fetchNextVideos}
+                hasMore={nextVideos !== null ? true : false}
+                loader={<div style={{display: 'grid'}}>
+                    <StyledProgress />
+                </div>}
+                endMessage={
+                    <div style={{marginBottom: '40px'}}>
+                    </div>
+                }
+                >
+                <SearchList onVideoSelect={onVideoSelect} videos={videos} fontSize={'1.4'}/>
+            </InfiniteScroll>
         </Div>
     );
 }

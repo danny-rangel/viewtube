@@ -49,6 +49,7 @@ const Content = styled(CardContent)`
 const TitleText = styled.h1`
     font-size: ${props => props.fontSize}rem;
     color: black;
+    font-weight: 100;
 
     ${media.medium`
         font-size: 1rem;
