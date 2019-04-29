@@ -32,7 +32,7 @@ const HomeDiv = styled.div`
 
 const ListDiv = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     grid-gap: 20px;
 `;
 
@@ -85,9 +85,9 @@ const Home = ({ onVideoSelect }) => {
                 src={video.snippet.thumbnails.high.url}
             />
             <CardContent>
-                <h4 style={{margin: 0, fontWeight: '100'}}>
-                    {video.snippet.title.length > 46 ? `${escapeChar(video.snippet.title.slice(0, 46))}...` : escapeChar(video.snippet.title)}
-                </h4>
+                <h5 style={{margin: 0, fontWeight: '100'}}>
+                    {video.snippet.title.length > 50 ? `${escapeChar(video.snippet.title.slice(0, 50))}...` : escapeChar(video.snippet.title)}
+                </h5>
             </CardContent>
         </StyledCard>
       );
