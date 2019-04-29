@@ -124,10 +124,13 @@ const StyledLink = styled(Link)`
 
 
 const Header = ({ onTermSubmit }) => {
-    const [ searchTerm, setSearchTerm ] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
 
     const handleSubmit = e => {
       e.preventDefault();
+      if (searchTerm.length === 0) {
+        throw new Error("No input entered!");
+      }
       onTermSubmit(searchTerm);
     }
 
@@ -149,6 +152,7 @@ const Header = ({ onTermSubmit }) => {
                     placeholder="Search"
                     onChange={e => setSearchTerm(e.target.value)}
                     onSubmit={handleSubmit}
+                    value={searchTerm}
                   >
                   </Input>
                   <SearchBarButton onClick={handleSubmit} aria-label="Search">

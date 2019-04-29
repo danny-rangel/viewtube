@@ -53,7 +53,7 @@ const Search = ({ videos, onVideoSelect, fetchNextVideos, nextVideos }) => {
                     </div>
                 }
                 >
-                <SearchList onVideoSelect={onVideoSelect} videos={videos} fontSize={'1.4'}/>
+                <SearchList onVideoSelect={onVideoSelect} videos={videos} fontSize={'1.2'}/>
             </InfiniteScroll>
         </Div>
     );

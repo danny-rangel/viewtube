@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Router, Route} from "react-router-dom";
+import { Router, Route } from "react-router-dom";
 import youtube from '../api/youtube';
 import history from '../utils/history';
 import ScrollToTop from '../utils/ScrollToTop';
@@ -19,9 +19,6 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState(null);
 
   const onTermSubmit = async term => {
-    if (term.length === 0) {
-      return;
-    }
     setSearchTerm(term);
       const response = await youtube.get('/search', {
           params: {

@@ -85,9 +85,9 @@ const Home = ({ onVideoSelect }) => {
                 src={video.snippet.thumbnails.high.url}
             />
             <CardContent>
-                <h5 style={{margin: 0, fontWeight: '100'}}>
-                    {video.snippet.title.length > 50 ? `${escapeChar(video.snippet.title.slice(0, 50))}...` : escapeChar(video.snippet.title)}
-                </h5>
+                <h4 style={{margin: 0, fontWeight: '100', fontSize: '1rem'}}>
+                    {video.snippet.title.length > 46 ? `${escapeChar(video.snippet.title.slice(0, 46))}...` : escapeChar(video.snippet.title)}
+                </h4>
             </CardContent>
         </StyledCard>
       );
