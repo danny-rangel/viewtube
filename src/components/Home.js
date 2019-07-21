@@ -10,14 +10,14 @@ const size = {
     small: 400,
     medium: 960,
     large: 1140
-}
+};
 
 const media = Object.keys(size).reduce((acc, label) => {
     acc[label] = (...args) => css`
         @media (max-width: ${size[label]}px) {
             ${css(...args)}
         }
-    `
+    `;
     return acc;
 }, {});
 
@@ -40,6 +40,7 @@ const StyledCard = styled(Card)`
     && {
         width: 100%;
         cursor: pointer;
+        box-shadow: none;
     }
 `;
 
@@ -55,62 +56,75 @@ const Img = styled.img`
     width: 100%;
 `;
 
+const StyledCardContent = styled(CardContent)`
+    && {
+        padding: 0 !important;
+    }
+`;
 
 const Home = ({ onVideoSelect }) => {
+    const [trendingVideos, setTrendingVideos] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-  const [trendingVideos, setTrendingVideos] = useState([]);
-  const [loading, setLoading] = useState(false);
+    const fetchTopVideos = async () => {
+        setLoading(true);
+        const response = await youtube.get('/videos', {
+            params: {
+                chart: 'mostPopular',
+                maxResults: 20,
+                part: 'snippet,contentDetails,statistics'
+            }
+        });
+        setTrendingVideos(response.data.items);
+        setLoading(false);
+    };
 
-  const fetchTopVideos = async () => {
-    setLoading(true);
-    const response = await youtube.get('/videos', {
-        params: {
-            chart: 'mostPopular',
-            maxResults: 20,
-            part: 'snippet,contentDetails,statistics'
-        }
+    useEffect(() => {
+        fetchTopVideos();
+    }, []);
+
+    const renderedList = trendingVideos.map(video => {
+        return (
+            <StyledCard key={video.id}>
+                <Img
+                    src={video.snippet.thumbnails.high.url}
+                    onClick={() => onVideoSelect(video)}
+                />
+                <StyledCardContent>
+                    <h4
+                        style={{
+                            marginTop: '10px',
+                            fontWeight: '100',
+                            fontSize: '1rem'
+                        }}
+                        onClick={() => onVideoSelect(video)}
+                    >
+                        {video.snippet.title.length > 46
+                            ? `${escapeChar(
+                                  video.snippet.title.slice(0, 46)
+                              )}...`
+                            : escapeChar(video.snippet.title)}
+                    </h4>
+                </StyledCardContent>
+            </StyledCard>
+        );
     });
-    setTrendingVideos(response.data.items);
-    setLoading(false);
-  }
-
-  useEffect(() => {
-    fetchTopVideos();
-  }, [])
-  
-  const renderedList = trendingVideos.map(video => {
-      return (
-        <StyledCard key={video.id} onClick={() => onVideoSelect(video)} >
-            <Img
-                src={video.snippet.thumbnails.high.url}
-            />
-            <CardContent>
-                <h4 style={{margin: 0, fontWeight: '100', fontSize: '1rem'}}>
-                    {video.snippet.title.length > 46 ? `${escapeChar(video.snippet.title.slice(0, 46))}...` : escapeChar(video.snippet.title)}
-                </h4>
-            </CardContent>
-        </StyledCard>
-      );
-  });
-
 
     if (loading) {
         return (
             <HomeDiv>
-                <h2 style={{fontWeight: '100'}}>Trending</h2>
+                <h2 style={{ fontWeight: '100' }}>Trending</h2>
                 <StyledProgress />
             </HomeDiv>
         );
     } else {
         return (
             <HomeDiv>
-                <h2 style={{fontWeight: '100'}}>Trending</h2>
-                <ListDiv>
-                    {renderedList}
-                </ListDiv>
+                <h2 style={{ fontWeight: '100' }}>Trending</h2>
+                <ListDiv>{renderedList}</ListDiv>
             </HomeDiv>
         );
     }
-}
+};
 
 export default Home;
