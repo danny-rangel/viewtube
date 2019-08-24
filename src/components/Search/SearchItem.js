@@ -4,27 +4,26 @@ import CardContent from '@material-ui/core/CardContent';
 import styled, { css } from 'styled-components';
 import escapeChar from '../../utils/escapeChar';
 
-
 const size = {
     small: 400,
     medium: 960,
     large: 1140
-}
+};
 
 const media = Object.keys(size).reduce((acc, label) => {
     acc[label] = (...args) => css`
         @media (max-width: ${size[label]}px) {
             ${css(...args)}
         }
-    `
+    `;
     return acc;
 }, {});
-
 
 const NewCard = styled(Card)`
     && {
         margin: 2px 0 0 0;
         width: 100%;
+        box-shadow: none;
     }
     &&:hover {
         background-color: #efefef;
@@ -42,7 +41,7 @@ const Content = styled(CardContent)`
 
         ${media.small`
             grid-template-columns: 1fr;
-        `} 
+        `}
     }
 `;
 
@@ -53,7 +52,7 @@ const TitleText = styled.h1`
 
     ${media.medium`
         font-size: 1rem;
-    `} 
+    `}
 `;
 
 const ChannelNameText = styled.h1`
@@ -62,10 +61,8 @@ const ChannelNameText = styled.h1`
 
     ${media.medium`
         font-size: 0.7rem;
-    `} 
+    `}
 `;
-
-
 
 const Image = styled.img`
     && {
@@ -79,7 +76,6 @@ const Div = styled.div`
     justify-self: center;
     justify-items: center;
     cursor: pointer;
-    
 `;
 
 const SearchItem = ({ video, onVideoSelect, fontSize }) => {
@@ -87,14 +83,12 @@ const SearchItem = ({ video, onVideoSelect, fontSize }) => {
         <Div onClick={() => onVideoSelect(video)}>
             <NewCard>
                 <Content>
-                    <Image
-                        src={video.snippet.thumbnails.high.url}
-                    />
+                    <Image src={video.snippet.thumbnails.high.url} />
                     <div>
                         <TitleText fontSize={fontSize}>
                             {escapeChar(video.snippet.title)}
                         </TitleText>
-                        <ChannelNameText >
+                        <ChannelNameText>
                             {video.snippet.channelTitle}
                         </ChannelNameText>
                         {/* <Typography variant="subtitle1" color="textSecondary">
@@ -105,7 +99,6 @@ const SearchItem = ({ video, onVideoSelect, fontSize }) => {
             </NewCard>
         </Div>
     );
-}
-
+};
 
 export default SearchItem;

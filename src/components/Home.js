@@ -22,7 +22,7 @@ const media = Object.keys(size).reduce((acc, label) => {
 }, {});
 
 const HomeDiv = styled.div`
-    margin: 80px 180px;
+    margin: 80px;
     display: grid;
 
     ${media.medium`
@@ -93,7 +93,7 @@ const Home = ({ onVideoSelect }) => {
                 <StyledCardContent>
                     <h4
                         style={{
-                            marginTop: '10px',
+                            margin: '10px 0 0 0',
                             fontWeight: '100',
                             fontSize: '1rem'
                         }}
@@ -104,6 +104,16 @@ const Home = ({ onVideoSelect }) => {
                                   video.snippet.title.slice(0, 46)
                               )}...`
                             : escapeChar(video.snippet.title)}
+                    </h4>
+                    <h4
+                        style={{
+                            color: '#606060',
+                            margin: '7px 0 10px 0',
+                            fontWeight: '100',
+                            fontSize: '1rem'
+                        }}
+                    >
+                        {video.snippet.channelTitle}
                     </h4>
                 </StyledCardContent>
             </StyledCard>

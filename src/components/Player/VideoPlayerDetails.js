@@ -44,6 +44,7 @@ const TitleText = styled.h2`
     font-size: 1.4rem;
 
     ${media.medium`
+        margin: 20px 0 0 0;
         font-size: 1.2rem;
     `}
 `;
